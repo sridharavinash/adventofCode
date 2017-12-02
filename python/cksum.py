@@ -7,4 +7,7 @@ def cksum(filename):
     f = open(filename, 'r')
     cksum = 0
     for line in f:
-        cksum += diff([int(x) for x in line.split
+        cksum += diff([int(x) for x in line.split()])
+    return cksum
+
+print(cksum("cksumin.txt"))
