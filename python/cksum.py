@@ -13,10 +13,11 @@ def mod(row):
             if i % j == 0:
                 return i/j
             
-def cksum(filename):
+def cksum(filename, fn):
     f = open(filename, 'r')
     cksum = 0
-    cksum = [mod([int(x) for x in line.split()]) for line in f]
-    return sum(cksum)
+    cksum = [fn([int(x) for x in line.split()]) for line in f]
+    return int(sum(cksum))
 
-print(cksum("cksumin.txt"))
+print(cksum("cksumin.txt", diff))
+print(cksum("cksumin.txt", mod))

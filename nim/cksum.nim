@@ -15,10 +15,11 @@ proc modd(row: seq[int]): int =
         return int(v1/v2)
   
 
-proc cksum(f: string): int =
+proc cksum(f: string; op: proc(x: seq[int]):int): int =
   var sum = 0
   for line in lines f:
-    sum += modd(map(line.split, parseInt))
+    sum += op(map(line.split, parseInt))
   return sum
 
-echo cksum("cksumin.txt")
+echo cksum("cksumin.txt", diff)  
+echo cksum("cksumin.txt", modd)
