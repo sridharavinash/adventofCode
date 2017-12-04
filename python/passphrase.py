@@ -12,3 +12,11 @@ def testPhrase(phrase):
 assert True == testPhrase("aa bb cc dd ee")
 assert False == testPhrase("aa bb cc dd aa")
 assert True ==  testPhrase("aa bb cc dd aaa")
+
+valid = 0
+for line in open("phraseinput.txt",'r'):
+    if testPhrase(line):
+        valid += 1
+
+print(valid)
+        
