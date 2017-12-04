@@ -29,10 +29,8 @@ def dist(num):
             i -=1
             j -=1
     d = abs(p[num][0] - orig[0]) + abs(p[num][1]-orig[1])
+    print(p[num])
     return num, d
 
-print(dist(12))            
-print(dist(23))
-print(dist(1024))
-
+print(dist(361527))
 
