@@ -12,4 +12,9 @@ proc isPhraseValid(p: string): bool =
 assert true == isPhraseValid("aa bb cc dd ee")
 assert false == isPhraseValid("aa bb cc dd aa")
 assert true ==  isPhraseValid("aa bb cc dd aaa")
-  
+
+var valid=0
+for line in lines "../phraseinput.txt":
+  if isPhraseValid(line):
+    valid += 1
+echo valid
