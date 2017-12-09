@@ -30,7 +30,7 @@ def part1():
     assert 1 == main("{}")
     assert 6 == main("{{{}}}")
     assert 5 == main("{{},{}}")
-    assert 16 == main("{{{},{},{{}}}}")b
+    assert 16 == main("{{{},{},{{}}}}")
     assert 1 == main("{<a>,<a>,<a>,<a>}")
     assert 9 == main("{{<ab>},{<ab>},{<ab>},{<ab>}}")
     assert 9 == main("{{<!!>},{<!!>},{<!!>},{<!!>}}")
