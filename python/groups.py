@@ -8,7 +8,7 @@ def detectGroup(stream,g,garbage,inception_level,gc=0):
         gc -= 1
         garbage = False
     if stream[0] == "}" and (not garbage):
-        g += 1 * inception_level
+        g += inception_level
         inception_level -= 1
     if stream[0] == "{" and (not garbage): inception_level +=1
     if garbage == True: gc += 1
