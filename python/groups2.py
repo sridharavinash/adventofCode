@@ -30,10 +30,10 @@ def detectGroup(stream):
 
 def main(s):
     print("*********")
-    groups = detectGroup(s)
-    print(groups)
+    score,gc = detectGroup(s)
+    print(score,gc)
     print()
-    return groups
+    return score,gc
 
 
 def part1():
@@ -59,6 +59,6 @@ def puzzle_input():
     with open("../groups.in",'r') as in_file:
         ss = in_file.read()
         main(ss)
-#part1()
+part1()
 part2()
 puzzle_input()
