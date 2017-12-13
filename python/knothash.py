@@ -44,11 +44,11 @@ def part2(inp):
     #64 rounds of the hashes to get the sparse hash
     for i in range(64):
         seqi,posi,skipi = knothash(seqi,inp_list,posi,skipi)
+
+    #generate the dense hash
     xored = []
     start = 0
     end = 16
-    
-    #generate the dense hash
     for i in range(16):
         sub = seqi[start:end]
         x = 0
