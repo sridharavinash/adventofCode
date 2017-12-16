@@ -1,17 +1,16 @@
-import knothash
+import knothash 
 from skimage.measure import label
 import numpy as np
 
 def repbin(c):
     return bin(int(c,16)).replace('0b','').zfill(4)
 
-
 def repHash(l):
     print( ''.join(['#' if x == '1' else '.' for x in l]))
 
 def repHash2(l):
     print( [str(x) if x > 0 else '.' for x in l])
-    
+
 #inp = 'flqrgnkx'
 inp = 'nbysizxe'
 z = 0

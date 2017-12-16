@@ -14,7 +14,7 @@ class Tree(object):
 
     def __str__(self):
         return self.name
-    
+
 def parseLine(line):
     l = line.split()
     n = l[0]
@@ -77,7 +77,6 @@ def main(filename):
     print(traverseTree(root))
 
 
-    
 main("disc_test.in")
 ns = (0,0)
 main("disc.in")
