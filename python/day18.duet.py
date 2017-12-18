@@ -1,28 +1,41 @@
 import re
 import queue
-
+import threading
 
 class Program(object):
-    def __init__(self,infile):
-        self.registers = {'end':False, 'jmp':0}
+    def __init__(self,infile,p=0):
+        self.id = p
+        self.registers = {'jmp':0, 'p': p}
         self.q  = queue.Queue()
         self.infile = infile
+        self.otherp = None
+        self.count = 0
+        self.waiting = False
+
+    def setOtherP(self,otherp):
+        self.otherp = otherp
 
     def mul (self,x,y):
         return x * y
 
     def snd(self,x):
-        x_prev = x +'_prev'
-        self.registers[x_prev] = self.registers[x]
-        return self.registers[x]
+        v = self.parse_val(x)
+        print("sending item", v, self.id,self.registers)
+        if self.id == 1:
+            self.count += 1
+            print("count:",self.count)
+        self.otherp.q.put(v)
 
     def rcv(self,x):
-        prev = x + "_prev"
-        if prev not in self.registers:
-            return
-        if self.registers[x] > 0:
-            self.registers["end"] = True
-            print("rcv:",self.registers[prev])
+        print("wating on rcv", self.id)
+        self.waiting = True
+        if self.otherp.waiting:
+            print(self.count)
+        item = self.q.get()
+        print("got item", item, self.id,self.registers)
+        self.waiting = False
+        if item :
+            self.registers[x] = item
 
     def jgz(self,reg,jmp):
         if reg.isdigit():
@@ -56,8 +69,6 @@ class Program(object):
                 self.registers[reg] = 0
             self.registers[reg] += val
         if ins == "mul":
-            if reg not in self.registers:
-                self.registers[reg] = 0
             self.registers[reg] *= val
         if ins == "mod":
             self.registers[reg] %= val
@@ -71,7 +82,7 @@ class Program(object):
     def run(self):
         lines = open(self.infile).readlines()
         i = 0
-        while not self.registers["end"]:
+        while 1:
             r = self.parse(lines[i])
             self.process(r)
             if abs(self.registers['jmp']) > 0:
@@ -80,6 +91,15 @@ class Program(object):
             else:
                 i+=1
 
-p = Program("../duet_p.in")
-p.run()
+p0 = Program("../duet_p.in",p=0)
+p1 = Program("../duet_p.in",p=1)
+p0.setOtherP(p1)
+p1.setOtherP(p0)
+t0 = threading.Thread(target = p0.run)
+t0.start()
 
+t1 = threading.Thread(target = p1.run)
+t1.start()
+
+for t in [t0,t1]:
+    t.join()
