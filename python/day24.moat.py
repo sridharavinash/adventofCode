@@ -14,16 +14,29 @@ def findConnectors(rem,c):
     return [x for x in rem if ((x[0] == c or x[1] == c))]
 
 maxx = 0
+max_len=0
+max_lenl= {}
 def findPaths(curr_node, remaining, curr_path=[]):
-    global maxx
+    global maxx, max_len,max_lenl
     #print("node:",curr_node)
     s = sum([x[0]+x[1] for x in curr_path])
+
+    if len(curr_path) >= max_len:
+        max_len = len(curr_path)
+        if max_len not in max_lenl:
+            max_lenl[max_len] = s
+
+        if s > max_lenl[max_len]:
+            max_lenl[max_len] = s
+        print("strength:", s, "max_len:", max_len)
+
     if s > maxx:
         maxx = s
-        print("curr_path:", curr_path, len(curr_path),  s, "\nmaxx:", maxx)
+        #print("curr_path:", curr_path, len(curr_path),  s, "\nmaxx:", maxx)
 
     if curr_node == ():
         #print("curr_path", s, "maxx:", maxx)
+        #print("strength:", s, "max_len:", max_len)
         return curr_path
 
     if len(curr_path) == 0:
@@ -51,6 +64,6 @@ for i in startingPos:
     a_without_starts = [x for x in a if x != a[i]]
     findPaths(a[i],a_without_starts,[])
 print ("Max:", maxx)
-
+print(max_lenl)
 
 
