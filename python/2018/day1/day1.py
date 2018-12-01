@@ -8,7 +8,6 @@ def main():
             if s in freqs:
                 print("repeated",s)
                 exit(0)
-                break
             freqs.append(s)
         print("sum",s)
 
