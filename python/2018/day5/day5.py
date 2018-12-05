@@ -39,7 +39,7 @@ def part2():
                 removed[rem] = react(new_line)
         #print(removed)
         minn = min(removed, key=removed.get)
-        print("min", minn, removed[minn])
+        print("min:", minn, removed[minn])
 
 if __name__ == "__main__":
     part1()
