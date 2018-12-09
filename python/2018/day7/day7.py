@@ -14,7 +14,7 @@ def part1():
     global started
     events = {}
     line_re = re.compile("^Step (.*) must be finished before step (.*) can begin.")
-    for line in open("input.txt","r"):
+    for line in open("test.txt","r"):
         parsed_line = re.match(line_re,line)
         step = parsed_line.group(1)
         before = parsed_line.group(2)
@@ -26,10 +26,9 @@ def part1():
         print(f"{step} -> {before}")
     print(events)
     print()
-    for k in events:
-        traverse(k,events)
+    traverse(events)
 
-def traverse(s,events):
+def traverse(events):
     global can_start
     global started
     global workers
@@ -43,11 +42,10 @@ def traverse(s,events):
     if len(can_start) < 1:
         return
     started.append(can_start[0])
-    ss = can_start[0]
     can_start.remove(can_start[0])
     print(''.join(started))
     print(can_start)
-    traverse(ss,events)
+    traverse(events)
     
     
 
