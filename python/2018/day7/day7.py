@@ -8,7 +8,8 @@ for i in range(0,2):
 ticks = {}
 for i,c in zip(range(1,27),list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')):
     ticks[c]=i
-
+times=0
+tt = {}
 def part1():
     global can_start
     global started
@@ -25,13 +26,15 @@ def part1():
         events[step] = sorted(events[step])
         print(f"{step} -> {before}")
     print(events)
+    print(ticks)
     print()
     traverse(events)
 
 def traverse(events):
     global can_start
     global started
-    global workers
+    global times
+
     for k in events:
         if k in started: continue
         if can_it_start(k,events,started):
@@ -41,10 +44,15 @@ def traverse(events):
     print("can_start", can_start)
     if len(can_start) < 1:
         return
-    started.append(can_start[0])
-    can_start.remove(can_start[0])
-    print(''.join(started))
-    print(can_start)
+    ss = can_start[0]
+    started.append(ss)
+    times += ticks[ss]
+    for xx in can_start:
+        tt[xx] = ticks[xx] - times
+
+    can_start.remove(ss)
+    print(''.join(started), "time:", times, len(started), tt)
+    input()
     traverse(events)
     
     
