@@ -1,6 +1,6 @@
 import itertools
 import re
-import regex as r2
+
 
 def process_input_file(filename):
   rules = {}
@@ -67,7 +67,7 @@ def part2(input):
     newr11 = f"({r42}){{{i}}}{r31}{{{i}}}"
     regex = f'^{newr8}{newr11}$'
     for c in checks:
-      if r2.match(regex, c):
+      if re.match(regex, c):
         #print(c)
         matches+=1
   print(f"Total Matches: {matches}")
